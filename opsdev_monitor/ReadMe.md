@@ -3,3 +3,5 @@
 后端：spring boot + sshj + swagger2
 
 目前的主要想法是学习 mobx 和 swagger 还在架构搭建中
+
+swagger 出来了，启动项目，输入 浏览器 http://localhost:9001/swagger-ui.html swagger 界面就出来了

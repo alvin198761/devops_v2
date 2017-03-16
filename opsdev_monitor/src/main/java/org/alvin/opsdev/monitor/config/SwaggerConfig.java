@@ -32,16 +32,4 @@ public class SwaggerConfig {
                 .version("1.0").build();
     }
 
-//    private ApiInfo demoApiInfo() {
-//        ApiInfo apiInfo = new ApiInfo("Electronic Health Record(EHR) Platform API",//大标题
-//                "EHR Platform's REST API, for system administrator",//小标题
-//                "1.0",//版本
-//                "NO terms of service",
-//                "365384722@qq.com",//作者
-//                "The Apache License, Version 2.0",//链接显示文字
-//                "http://www.apache.org/licenses/LICENSE-2.0.html"//网站链接
-//        );
-//
-//        return apiInfo;
-//    }
 }
