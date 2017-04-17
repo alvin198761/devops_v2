@@ -4,7 +4,7 @@
     "index": "./src/index.js"
   },
   "dependencies": {
-    "antd": "^2.8.0",
+    "antd": "^2.9.1",
     "dva": "^1.2.1",
     "images": "^3.0.0",
     "react": "^15.3.2",
