@@ -5,6 +5,8 @@
 * 前端采用 vue2 + iview ，有空会吧 puer , vuex 加上
 * 后端准备用 spring boot + swagger2 做架子，如果可以，可能加上kafka 这类型的中间件，练习一下，还有 db flyway 
 
+![image](https://github.com/alvin198761/devops_v2/blob/master/opsdev-appstore/pics/pic.png) 
+
 ***
 
 ## 更新日志
