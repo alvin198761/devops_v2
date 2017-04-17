@@ -1,0 +1,64 @@
+## centos 6.x 常规性能监控命令
+"cat /proc/net/tcp",
+"cat /proc/net/dev",
+"cat /proc/meminfo",
+"cat /proc/stat",
+"cat /proc/loadavg",
+"cat /proc/sys/fs/file-nr",
+"cat /proc/swaps",
+"df -Pkl",
+"iostat -d",
+
+## mycat 监控命令
+"show @@backend\\G";
+"show @@threadpool\\G";
+"show @@heartbeat\\G";
+"show @@datanode\\G";
+"show @@processor\\G";
+
+## mysql 监控命令
+mysql -uuser -ppassword -huser -Pport -e 'SHOW GLOBAL STATUS'
+
+## redis 监控命令
+redis-cli -h ip -p port -a password info
+
+## zookeeper
+echo  crst  |nc ' + ip + ' ' + port
+echo  dump  |nc ' + ip + ' ' + port
+echo  envi  |nc ' + ip + ' ' + port
+echo  ruok  |nc ' + ip + ' ' + port
+echo  srst  |nc ' + ip + ' ' + port
+echo  srvr  |nc ' + ip + ' ' + port
+echo  stat  |nc ' + ip + ' ' + port
+echo  wchs |nc ' + ip + ' ' + port
+echo  wchc  |nc ' + ip + ' ' + port
+echo  wchp  |nc ' + ip + ' ' + port
+echo  mntr |nc ' + ip + ' ' + port
+
+or
+
+echo  crst  |telnet ' + ip + ' ' + port
+echo  dump  |telnet ' + ip + ' ' + port
+echo  envi  |telnet ' + ip + ' ' + port
+echo  ruok  |telnet ' + ip + ' ' + port
+echo  srst  |telnet ' + ip + ' ' + port
+echo  srvr  |telnet ' + ip + ' ' + port
+echo  stat  |telnet ' + ip + ' ' + port
+echo  wchs |telnet ' + ip + ' ' + port
+echo  wchc  |telnet ' + ip + ' ' + port
+echo  wchp  |telnet ' + ip + ' ' + port
+echo  mntr |telnet ' + ip + ' ' + port
+
+## spring boot 
+增加 spring-boot-starter-actuator ，spring-boot-starter-remote-shell ，crash.shell 配置好用户密码和端口就可以监控
+> 示例：https://github.com/alvin198761/Luna_Demo/tree/master/boot_servlet
+
+## spring mvc
+使用 crash 来增加监控，起操作跟spring boot 一样
+> 示例：https://github.com/alvin198761/Luna_Demo/tree/master/spring_mvc_endpoint
+
+## centos 端口监控
+netstat -lnp|grep tcp |egrep ':"port" '
+
+## centos 进程监控
+ps -ef|grep processName |grep -v 'grep'
