@@ -1,4 +1,4 @@
-package org.alvin.opsdev.monitor.utils;
+package org.alvin.opsdev.monitor.system.utils;
 
 import com.google.common.io.ByteStreams;
 import com.google.common.io.Files;
@@ -8,7 +8,6 @@ import net.schmizz.sshj.connection.channel.direct.Session;
 import net.schmizz.sshj.transport.verification.HostKeyVerifier;
 import net.schmizz.sshj.xfer.FileSystemFile;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PreDestroy;

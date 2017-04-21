@@ -1,11 +1,11 @@
-//package org.alvin.opsdev.monitor.service;
+//package org.alvin.opsdev.monitor.system.service;
 //
-//import org.alvin.opsdev.monitor.bean.collector.ICollector;
+//import org.alvin.opsdev.monitor.system.bean.collector.ICollector;
 //
-//public class InjectService {
+//public class InjectTool {
 //
-//    private Map<ObjectType, ICollector> collectorInjectMap = new HashMap<>();
-//    private Map<ObjectType, Method> defaultMetricMethodMap = new HashMap<>();
+//    private Map<CollectoType, ICollector> collectorInjectMap = new HashMap<>();
+//    private Map<CollectoType, Method> defaultMetricMethodMap = new HashMap<>();
 //
 //    @Autowired
 //    private ApplicationContext applicationContext;
@@ -29,7 +29,7 @@
 //            if (annotation == null) {
 //                continue;
 //            }
-//            ObjectType objectType = getAnnotationValue(annotation);
+//            CollectoType objectType = getAnnotationValue(annotation);
 //            if (objectType == null) {
 //                continue;
 //            }
@@ -38,9 +38,9 @@
 //    }
 //
 //    private void injectCollector(List<Class> collectorClass, List<Class> parserClass) {
-//        final Map<ObjectType, Class> parserMap = fromClassMap(parserClass, Parser.class, AbstractParser.class);
-//        Map<ObjectType, Class> collectorMap = fromClassMap(collectorClass, Collector.class, BaseCollector.class);
-//        for (final Map.Entry<ObjectType, Class> entry : collectorMap.entrySet()) {
+//        final Map<CollectoType, Class> parserMap = fromClassMap(parserClass, Parser.class, AbstractParser.class);
+//        Map<CollectoType, Class> collectorMap = fromClassMap(collectorClass, Collector.class, BaseCollector.class);
+//        for (final Map.Entry<CollectoType, Class> entry : collectorMap.entrySet()) {
 //            final ICollector collector = (ICollector) applicationContext.getBean(entry.getValue());
 //            if (collector == null) {
 //                continue;
@@ -78,8 +78,8 @@
 //        }
 //    }
 //
-//    private Map<ObjectType, Class> fromClassMap(List<Class> classList, Class annotationClass, Class checkClass) {
-//        Map<ObjectType, Class> parserMap = new HashMap<>();
+//    private Map<CollectoType, Class> fromClassMap(List<Class> classList, Class annotationClass, Class checkClass) {
+//        Map<CollectoType, Class> parserMap = new HashMap<>();
 //        loop:
 //        for (int i = 0 ; i < classList.size() ;i++) {
 //            //递归获取上级class
@@ -104,7 +104,7 @@
 //            if (annotation == null) {
 //                continue;
 //            }
-//            ObjectType type = getAnnotationValue(annotation);
+//            CollectoType type = getAnnotationValue(annotation);
 //            if (type != null) {
 //                parserMap.put(type, classList.get(i));
 //            }
@@ -112,17 +112,17 @@
 //        return parserMap;
 //    }
 //
-//    private ObjectType getAnnotationValue(final Annotation annotation) {
-//        return AccessController.doPrivileged(new PrivilegedAction<ObjectType>() {
+//    private CollectoType getAnnotationValue(final Annotation annotation) {
+//        return AccessController.doPrivileged(new PrivilegedAction<CollectoType>() {
 //
 //            @Override
-//            public ObjectType run() {
+//            public CollectoType run() {
 //                try {
 //                    Method method = annotation.getClass().getMethod("value");
 //                    boolean access = method.isAccessible();
 //                    try {
 //                        method.setAccessible(true);
-//                        return (ObjectType) method.invoke(annotation);
+//                        return (CollectoType) method.invoke(annotation);
 //                    } finally {
 //                        method.setAccessible(access);
 //                    }
@@ -230,11 +230,11 @@
 //        return classList;
 //    }
 //
-//    public ICollector getCollector(ObjectType type) {
+//    public ICollector getCollector(CollectoType type) {
 //        return this.collectorInjectMap.get(type);
 //    }
 //
-//    public List<Metric> getDefaultMetricByType(final ObjectType type) {
+//    public List<Metric> getDefaultMetricByType(final CollectoType type) {
 //        final MetricHelper metricHelper = applicationContext.getBean(MetricHelper.class);
 //        return AccessController.doPrivileged(new PrivilegedAction<List<Metric>>() {
 //

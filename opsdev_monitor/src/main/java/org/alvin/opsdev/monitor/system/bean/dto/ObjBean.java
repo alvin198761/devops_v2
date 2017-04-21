@@ -1,4 +1,4 @@
-package org.alvin.opsdev.monitor.bean;
+package org.alvin.opsdev.monitor.system.bean.dto;
 
 /**
  * Created by Administrator on 2017/3/15.

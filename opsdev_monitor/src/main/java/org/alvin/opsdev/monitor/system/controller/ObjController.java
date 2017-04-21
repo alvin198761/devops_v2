@@ -1,9 +1,9 @@
-package org.alvin.opsdev.monitor.controller;
+package org.alvin.opsdev.monitor.system.controller;
 
 import com.google.common.collect.Lists;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import org.alvin.opsdev.monitor.bean.ObjBean;
+import org.alvin.opsdev.monitor.system.bean.dto.ObjBean;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
