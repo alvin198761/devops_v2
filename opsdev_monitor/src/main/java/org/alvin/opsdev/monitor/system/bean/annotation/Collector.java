@@ -1,6 +1,6 @@
 package org.alvin.opsdev.monitor.system.bean.annotation;
 
-import org.alvin.opsdev.monitor.system.bean.enums.CollectoType;
+import org.alvin.opsdev.monitor.system.bean.enums.CollectorType;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -14,6 +14,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Collector {
 
-    CollectoType value();
+    CollectorType value();
 
 }

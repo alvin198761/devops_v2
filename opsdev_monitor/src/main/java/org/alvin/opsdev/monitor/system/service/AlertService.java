@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import org.alvin.opsdev.monitor.system.bean.dto.AlertLevelBean;
 import org.alvin.opsdev.monitor.system.bean.dto.AlertLevelTrendItem;
 import org.alvin.opsdev.monitor.system.bean.dto.AlertStatusBean;
+import org.alvin.opsdev.monitor.system.domain.Alert;
+import org.alvin.opsdev.monitor.system.domain.Device;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,5 +28,13 @@ public class AlertService {
 
     public List<AlertLevelTrendItem> getAlertLevelTrends() {
         return Lists.newArrayList();
+    }
+
+    public void save(Alert alert){
+        System.out.println("save alert");
+    }
+
+    public Alert findByDevice(Device device) {
+        return null;
     }
 }

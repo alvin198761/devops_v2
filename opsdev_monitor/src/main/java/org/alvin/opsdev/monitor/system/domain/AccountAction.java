@@ -10,8 +10,10 @@ public class AccountAction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @ManyToOne
     @JoinColumn(name = "act_id",referencedColumnName = "id")
     private Action action;
+    @ManyToOne
     @JoinColumn(name = "acc_id",referencedColumnName = "id")
     private Account account;
 

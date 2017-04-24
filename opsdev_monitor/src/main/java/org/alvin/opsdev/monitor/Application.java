@@ -17,7 +17,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableCaching
 @EnableScheduling
 @ComponentScan("org.alvin.opsdev.monitor")
-@EnableJpaRepositories("org.alvin.opsdev.monitor.system.repository")
+@EnableJpaRepositories("org.alvin.opsdev.monitor.system.repository" )
 @EntityScan("org.alvin.opsdev.monitor.system.domain")
 public class Application {
 

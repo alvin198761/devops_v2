@@ -7,7 +7,7 @@ import javax.persistence.*;
 /**
  * Created by tangzhichao on 2017/4/21.
  */
-@Entity(name = "main")
+@Entity(name = "account")
 public class Account {
 
     @Id

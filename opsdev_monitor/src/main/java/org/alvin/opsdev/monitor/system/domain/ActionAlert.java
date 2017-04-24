@@ -10,8 +10,10 @@ public class ActionAlert {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @ManyToOne
     @JoinColumn(name = "act_id" ,referencedColumnName = "id")
     private Action action;
+    @ManyToOne
     @JoinColumn(name = "alt_id" ,referencedColumnName = "id")
     private Alert alert;
 

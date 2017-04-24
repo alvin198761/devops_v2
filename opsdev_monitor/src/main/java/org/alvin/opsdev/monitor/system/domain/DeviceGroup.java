@@ -1,13 +1,11 @@
 package org.alvin.opsdev.monitor.system.domain;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by tangzhichao on 2017/4/21.
  */
-@Entity(name = "group")
+@Entity(name = "`group`")
 public class DeviceGroup {
 
     @Id
@@ -15,9 +13,8 @@ public class DeviceGroup {
     private Long id;
     @Column(name = "name", unique = true, nullable = false)
     private String name;
-    @Column(length = 500)
+    @Column(name = "remark")
     private String remark;
-
 
     public Long getId() {
         return id;

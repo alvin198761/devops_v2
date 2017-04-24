@@ -1,5 +1,6 @@
 package org.alvin.opsdev.monitor.system.domain;
 
+import org.alvin.opsdev.monitor.system.bean.enums.CollectorType;
 import org.alvin.opsdev.monitor.system.bean.enums.ObjectStatus;
 import org.alvin.opsdev.monitor.system.bean.enums.ObjectType;
 
@@ -20,8 +21,12 @@ public class Device {
     private Long parentId;
     @Enumerated(EnumType.ORDINAL)
     private ObjectType type;
-    @JoinColumn(name = "g_id" ,referencedColumnName = "id")
+    @Enumerated(EnumType.ORDINAL)
+    private CollectorType collectorType;
+    @JoinColumn(name = "g_id", referencedColumnName = "id")
+    @ManyToOne
     private DeviceGroup group;
+    private Boolean enabled;
 
 
     public Long getId() {
@@ -70,5 +75,23 @@ public class Device {
 
     public void setGroup(DeviceGroup group) {
         this.group = group;
+    }
+
+
+    public CollectorType getCollectorType() {
+        return collectorType;
+    }
+
+    public void setCollectorType(CollectorType collectorType) {
+        this.collectorType = collectorType;
+    }
+
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 }

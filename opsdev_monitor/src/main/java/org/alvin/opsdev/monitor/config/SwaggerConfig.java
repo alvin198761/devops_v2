@@ -21,14 +21,15 @@ public class SwaggerConfig {
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select()
-                .apis(RequestHandlerSelectors.basePackage("org.alvin.opsdev.monitor.system.controller")).paths(PathSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("org.alvin.opsdev.monitor.system.controller"))
+                .paths(PathSelectors.any())
                 .build();
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder().title("运维监控系统")
                 .description("运维微服务的各种服务和消息中间件监控")
-                .termsOfServiceUrl("http://localhost:9001")
+                .termsOfServiceUrl("http://localhost:21003")
                 .version("1.0").build();
     }
 

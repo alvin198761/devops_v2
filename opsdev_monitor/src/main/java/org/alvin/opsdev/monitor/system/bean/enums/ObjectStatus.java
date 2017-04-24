@@ -5,5 +5,5 @@ package org.alvin.opsdev.monitor.system.bean.enums;
  */
 public enum ObjectStatus {
 
-    FAIL, SUCCESS, UNKNOWN
+    SUCCESS, FAIL, UNKNOWN
 }
