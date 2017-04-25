@@ -25,8 +25,4 @@ public class DataJob {
         System.out.println("清理日志文件");
     }
 
-    @Scheduled(cron = "0/30 * * * * ?")
-    public void addAlert(){
-
-    }
 }

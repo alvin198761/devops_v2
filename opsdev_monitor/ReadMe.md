@@ -1,9 +1,20 @@
 # 运维系统监控平台
-前端： react + mobx + antd + dora + mockjs + g2 + reqwest
-后端：spring boot + sshj + swagger2
+* 前端： react + mobx + antd + dora + mockjs + g2 + reqwest
+* 后端：spring boot + sshj + swagger2
 
 
 ## 更新日志
 * 开始实现项目基本数据结构
 * swagger 出来了，启动项目，输入 浏览器 http://localhost:21003/swagger-ui.html swagger 界面就出来了
 * 目前的主要想法是学习 mobx 和 swagger 还在架构搭建中
+
+
+## 思路
+> 五条线
+
+* 每分钟产生一个Ticket --> 加入任务队列 --> 结束
+* 死循环 --> 获取Ticket --> 产生采集任务 --> 采集 --> 分析 --> 对比阈值 --> 产生性能数据 --> 产生缓存告警 --> 结束
+* 每小时检查一次缓存告警 --> 产生报表数据 --> 发送通知（邮件，短信）--> 记录通知信息 --> 结束
+* 每天检查一次 --> 清理日志文件 --> 结束
+* 每周检查一次 --> 清理过期数据 --> 结束
+

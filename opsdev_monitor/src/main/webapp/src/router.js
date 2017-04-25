@@ -3,8 +3,10 @@ import {Router, Route,IndexRoute, browserHistory} from 'react-router';
 import {RouterStore, syncHistoryWithStore} from 'mobx-react-router';
 
 import IndexPage from './routes/IndexPage';
-// import Overview from './components/Overview';
-import MainConsole from './components/mianconsole/MainConsole.jsx';
+import MainConsole from './components/mian/MainConsole';
+import DeviceStatus from './components/device/DeviceMgr';
+import AlertStatus from './components/alert/AlertMgr';
+import PluginMgr from './components/plugin/PluginMgr';
 import List from './components/List';
 import LineChartDemo from './components/LineChartDemo';
 export const routingStore = new RouterStore();
@@ -16,6 +18,9 @@ export const CustomRouter = () => (
     <Route path='/' component={IndexPage}>
       <IndexRoute components={MainConsole}></IndexRoute>
       <Route path='/overview' component={MainConsole}/>
+      <Route path='/device' component={DeviceStatus}/>
+      <Route path='/plugin' component={PluginMgr}/>
+      <Route path='/alert' component={AlertStatus}/>
       <Route path='/list' component={List}/>
       <Route path='/chart' component={LineChartDemo}/>
     </Route>

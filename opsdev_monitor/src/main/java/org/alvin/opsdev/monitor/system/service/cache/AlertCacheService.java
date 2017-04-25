@@ -4,6 +4,7 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import org.alvin.opsdev.monitor.system.domain.Alert;
 import org.alvin.opsdev.monitor.system.domain.Device;
+import org.alvin.opsdev.monitor.system.domain.Metric;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,25 +17,40 @@ import java.util.stream.Collectors;
 @Component
 public class AlertCacheService {
 
-    private Cache<Long, Alert> deviceCache = CacheBuilder.newBuilder().expireAfterWrite(2, TimeUnit.MINUTES).build();
+    private Cache<String, Alert> deviceCache = CacheBuilder.newBuilder().expireAfterWrite(2, TimeUnit.MINUTES).build();
 
     public void put(Device dev, Alert alert) {
-        this.deviceCache.put(dev.getId(), alert);
+        this.deviceCache.put(dev.getId() + "_", alert);
+    }
+
+    public void put(Device dev, Metric metric, Alert alert) {
+        String key = dev.getId() + "_" + metric.getId();
+        this.deviceCache.put(key, alert);
     }
 
     public Alert get(Device dev) {
         return deviceCache.getIfPresent(dev.getId());
     }
 
+    public Alert get(Device dev, Metric metric) {
+        String key = dev.getId() + "_" + metric.getId();
+        return this.deviceCache.getIfPresent(key);
+    }
+
     public void remove(Device dev) {
         deviceCache.invalidate(dev.getId());
+    }
+
+    public Alert remove(Device dev, Metric metric) {
+        String key = dev.getId() + "_" + metric.getId();
+        return this.deviceCache.getIfPresent(key);
     }
 
     public void clear() {
         deviceCache.invalidateAll();
     }
 
-    public List<Alert> getAll(){
+    public List<Alert> getAll() {
         return deviceCache.asMap().values().stream().collect(Collectors.toList());
     }
 

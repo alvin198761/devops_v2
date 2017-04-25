@@ -8,7 +8,7 @@ const TabPane = Tabs.TabPane;
 
 const MainConsole = (props) => {
   return (
-    <Tabs
+    <Tabs style={ {minHeight: 500}}
       hideAdd
       type="editable-card"
       tabBarExtraContent={<Button>自定义按钮</Button>}>

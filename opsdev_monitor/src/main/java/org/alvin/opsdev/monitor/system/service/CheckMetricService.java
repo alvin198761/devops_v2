@@ -1,11 +1,13 @@
 package org.alvin.opsdev.monitor.system.service;
 
 import org.alvin.opsdev.monitor.system.bean.CollectorTicket;
+import org.alvin.opsdev.monitor.system.bean.action.NotifyActionExecutor;
 import org.alvin.opsdev.monitor.system.bean.cache.StatusCacheBean;
 import org.alvin.opsdev.monitor.system.bean.enums.AlertLevel;
 import org.alvin.opsdev.monitor.system.bean.enums.AlertStatus;
 import org.alvin.opsdev.monitor.system.bean.enums.ObjectStatus;
 import org.alvin.opsdev.monitor.system.domain.*;
+import org.alvin.opsdev.monitor.system.service.cache.AlertCacheService;
 import org.alvin.opsdev.monitor.system.service.cache.DeviceMetricValueCacheService;
 import org.alvin.opsdev.monitor.system.service.cache.DeviceStatusCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,10 @@ public class CheckMetricService {
     private ThresholdService thresholdService;
     @Autowired
     private DeviceMetricValueCacheService deviceMetricValueCacheService;
+    @Autowired
+    private AlertCacheService alertCacheService;
+    @Autowired
+    private NotifyActionExecutor notifyActionExecutor;
 
     /**
      * 对每一轮监控和采集结果进行检查，审核，并产生报表数据
@@ -45,6 +51,8 @@ public class CheckMetricService {
         checkStatus(groups, devices, ticket);
         //检查指标是否有出错的，或者有恢复的
         checkMetrics(groups, devices, ticket);
+        // TODO: 2017/4/25 如果有新的严重级别的问题，并且超过了三次，立即发送一封邮件
+        this.notifyActionExecutor.checkAlert();
     }
 
     //_______________________________status__________________________________________________
@@ -116,26 +124,57 @@ public class CheckMetricService {
     private void checkDevMetric(Device device, CollectorTicket ticket) {
         List<Metric> metrics = this.metricService.findByObjectType(device.getCollectorType());
         metrics.forEach(metric -> {
-            Threshold threshold = this.thresholdService.findByDeviceAndMetric(device,metric);
-            if(threshold == null){
+            Threshold threshold = this.thresholdService.findByDeviceAndMetric(device, metric);
+            if (threshold == null) {
                 //Todo  清除缓存
-                return ;
-            }
-            if(threshold.getEnabled()){
-                //Todo  清除缓存
-                return ;
-            }
-            double value = this.deviceMetricValueCacheService.get(device,metric);
-            if(value >= threshold.getLimit()){
-                //Todo 严重错误
+                this.alertCacheService.remove(device, metric);
                 return;
             }
-            if(value >= threshold.getWarn()){
+            if (threshold.getEnabled()) {
+                //Todo  清除缓存
+                this.alertCacheService.remove(device, metric);
+                return;
+            }
+            double value = this.deviceMetricValueCacheService.get(device, metric);
+            Alert alert = this.alertCacheService.get(device, metric);
+            if (alert == null) {
+                alert = new Alert();
+                alert.setStatus(AlertStatus.ACTIVE);
+                alert.setCount(0);
+                alert.setLevel(AlertLevel.NORMAL);
+            }
+            if (value >= threshold.getLimit()) {
+                //Todo 严重错误
+                alert.setTime(ticket.getTime());
+                alert.setDevice(device);
+                alert.setMetric(metric);
+                alert.setLevel(AlertLevel.CRITICAL);
+                alert.setStatus(AlertStatus.ACTIVE);
+                alert.setCount(alert.getCount() + 1);
+                this.alertCacheService.put(device, metric, alert);
+                return;
+            }
+            if (value >= threshold.getWarn()) {
                 //Todo 警告错误
+                alert.setTime(ticket.getTime());
+                alert.setDevice(device);
+                alert.setMetric(metric);
+                alert.setLevel(AlertLevel.WARNING);
+                alert.setStatus(AlertStatus.ACTIVE);
+                alert.setCount(alert.getCount() + 1);
+                this.alertCacheService.put(device, metric, alert);
                 return;
             }
             //Todo 根据状态判断是不是要产生清除信息
-            return;
+            if (alert.getCount() > 0 && alert.getLevel() != AlertLevel.NORMAL) {
+                alert.setLevel(AlertLevel.NORMAL);
+                alert.setStatus(AlertStatus.CLEAN);
+                alert.setCount(1);
+                alert.setDevice(device);
+                alert.setMetric(metric);
+                this.alertCacheService.put(device, metric, alert);
+                return;
+            }
         });
     }
 }

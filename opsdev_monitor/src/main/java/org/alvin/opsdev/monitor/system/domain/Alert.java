@@ -25,6 +25,9 @@ public class Alert {
     @Enumerated(EnumType.ORDINAL)
     private AlertStatus status;
     private Date time;
+    @JoinColumn(name = "metric_id", referencedColumnName = "id")
+    @ManyToOne
+    private Metric metric;
 
     public Long getId() {
         return id;
@@ -72,5 +75,13 @@ public class Alert {
 
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    public Metric getMetric() {
+        return metric;
+    }
+
+    public void setMetric(Metric metric) {
+        this.metric = metric;
     }
 }
