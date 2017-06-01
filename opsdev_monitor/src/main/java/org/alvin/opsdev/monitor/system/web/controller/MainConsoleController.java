@@ -1,6 +1,5 @@
-package org.alvin.opsdev.monitor.system.controller;
+package org.alvin.opsdev.monitor.system.web.controller;
 
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.alvin.opsdev.monitor.system.bean.dto.AlertLevelBean;
@@ -11,7 +10,6 @@ import org.alvin.opsdev.monitor.system.service.AlertService;
 import org.alvin.opsdev.monitor.system.service.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;

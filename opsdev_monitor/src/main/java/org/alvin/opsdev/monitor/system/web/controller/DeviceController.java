@@ -1,4 +1,4 @@
-package org.alvin.opsdev.monitor.system.controller;
+package org.alvin.opsdev.monitor.system.web.controller;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;

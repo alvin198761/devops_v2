@@ -25,6 +25,12 @@ public class AlertCacheService {
 
     public void put(Device dev, Metric metric, Alert alert) {
         String key = dev.getId() + "_" + metric.getId();
+        Alert old = this.get(dev, metric);
+        if(old != null){
+            alert.setCount(old.getCount() +1);
+        }else {
+            alert.setCount(1);
+        }
         this.deviceCache.put(key, alert);
     }
 
@@ -35,10 +41,6 @@ public class AlertCacheService {
     public Alert get(Device dev, Metric metric) {
         String key = dev.getId() + "_" + metric.getId();
         return this.deviceCache.getIfPresent(key);
-    }
-
-    public void remove(Device dev) {
-        deviceCache.invalidate(dev.getId());
     }
 
     public Alert remove(Device dev, Metric metric) {
@@ -54,4 +56,7 @@ public class AlertCacheService {
         return deviceCache.asMap().values().stream().collect(Collectors.toList());
     }
 
+    public void add(Alert alert) {
+        this.put(alert.getDevice(),alert.getMetric(),alert);
+    }
 }

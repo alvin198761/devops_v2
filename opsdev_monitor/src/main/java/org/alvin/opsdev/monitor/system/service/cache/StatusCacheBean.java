@@ -1,4 +1,4 @@
-package org.alvin.opsdev.monitor.system.bean.cache;
+package org.alvin.opsdev.monitor.system.service.cache;
 
 import org.alvin.opsdev.monitor.system.bean.enums.ObjectStatus;
 

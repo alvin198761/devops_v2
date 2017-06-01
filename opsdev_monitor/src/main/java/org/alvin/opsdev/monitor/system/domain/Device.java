@@ -1,6 +1,5 @@
 package org.alvin.opsdev.monitor.system.domain;
 
-import org.alvin.opsdev.monitor.system.bean.enums.CollectorType;
 import org.alvin.opsdev.monitor.system.bean.enums.ObjectStatus;
 import org.alvin.opsdev.monitor.system.bean.enums.ObjectType;
 
@@ -21,13 +20,16 @@ public class Device {
     private Long parentId;
     @Enumerated(EnumType.ORDINAL)
     private ObjectType type;
-    @Enumerated(EnumType.ORDINAL)
+    @ManyToOne
+    @JoinColumn(name = "c_id", referencedColumnName = "id")
     private CollectorType collectorType;
     @JoinColumn(name = "g_id", referencedColumnName = "id")
     @ManyToOne
     private DeviceGroup group;
     private Boolean enabled;
-
+    @JoinColumn(name = "a_id", referencedColumnName = "id")
+    @OneToOne
+    private Account account;
 
     public Long getId() {
         return id;
@@ -93,5 +95,14 @@ public class Device {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
+    }
+
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }

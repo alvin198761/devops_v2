@@ -79,7 +79,7 @@ public class CollectorJob implements InitializingBean {
                 //统一处理等待结束
                 waitFor(futures);
                 //统一计算处理逻辑
-                checkMetricsService.check(groups,devices,ticket);
+                checkMetricsService.check(groups, devices, ticket);
             } catch (InterruptedException e) {
                 logger.error(e);
                 logger.info("take ticket failed");
@@ -104,14 +104,8 @@ public class CollectorJob implements InitializingBean {
     }
 
     private void deviceCollector(DeviceGroup item, CollectorTicket ticket, List<Future> futures, Device dev) {
-        ICollector collector = injectTool.getCollector(dev.getCollectorType());
+        ICollector collector = injectTool.getCollector(dev.getCollectorType().getId());
         Assert.notNull(collector, dev.getCollectorType() + " collector not impl");
-        //获取状态
-        dev.setStatus(collector.getStatus());
-        //是否连接成功
-        if(dev.getStatus() != ObjectStatus.SUCCESS){
-            return ;
-        }
         //是否开启采集
         if (!collector.isEnabled()) {
             return;

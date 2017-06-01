@@ -2,7 +2,7 @@ package org.alvin.opsdev.monitor.system.service;
 
 import org.alvin.opsdev.monitor.system.bean.CollectorTicket;
 import org.alvin.opsdev.monitor.system.bean.action.NotifyActionExecutor;
-import org.alvin.opsdev.monitor.system.bean.cache.StatusCacheBean;
+import org.alvin.opsdev.monitor.system.service.cache.StatusCacheBean;
 import org.alvin.opsdev.monitor.system.bean.enums.AlertLevel;
 import org.alvin.opsdev.monitor.system.bean.enums.AlertStatus;
 import org.alvin.opsdev.monitor.system.bean.enums.ObjectStatus;
@@ -66,7 +66,7 @@ public class CheckMetricService {
     }
 
     private void checkDevStatus(Device device, CollectorTicket ticket) {
-        StatusCacheBean statusCacheBean = this.deviceStatusCacheService.get(device);
+        StatusCacheBean statusCacheBean = this.deviceStatusCacheService.get(device.getId());
         ObjectStatus status = device.getStatus();
         if (statusCacheBean == null) {
             if (status != ObjectStatus.SUCCESS) {
@@ -98,7 +98,7 @@ public class CheckMetricService {
             alert.setStatus(AlertStatus.CLEAN);
             alert.setTime(ticket.getTime());
             this.alertService.save(alert);
-            this.deviceStatusCacheService.remove(device);
+            this.deviceStatusCacheService.del(device.getId());
             return;
         }
         //增加警告次数

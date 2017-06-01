@@ -1,4 +1,4 @@
-package org.alvin.opsdev.monitor.system.controller;
+package org.alvin.opsdev.monitor.system.web.controller;
 
 import com.google.common.collect.Lists;
 import io.swagger.annotations.ApiImplicitParam;

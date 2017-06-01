@@ -22,6 +22,8 @@ public class Account {
     private String targets;
     @Enumerated(EnumType.ORDINAL)
     private ActionType type;
+    private Integer serverPort;
+    private Integer monitorPort;
 
 
     public Long getId() {
@@ -71,5 +73,22 @@ public class Account {
 
     public void setType(ActionType type) {
         this.type = type;
+    }
+
+
+    public Integer getServerPort() {
+        return serverPort;
+    }
+
+    public void setServerPort(Integer serverPort) {
+        this.serverPort = serverPort;
+    }
+
+    public Integer getMonitorPort() {
+        return monitorPort;
+    }
+
+    public void setMonitorPort(Integer monitorPort) {
+        this.monitorPort = monitorPort;
     }
 }

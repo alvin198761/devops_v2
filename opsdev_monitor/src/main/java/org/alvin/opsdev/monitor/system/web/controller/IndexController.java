@@ -1,4 +1,4 @@
-package org.alvin.opsdev.monitor.system.controller;
+package org.alvin.opsdev.monitor.system.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

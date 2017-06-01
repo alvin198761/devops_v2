@@ -1,8 +1,6 @@
 package org.alvin.opsdev.monitor.system.domain;
 
-import org.alvin.opsdev.monitor.system.bean.enums.CollectorType;
 import org.alvin.opsdev.monitor.system.bean.enums.MetricType;
-import org.alvin.opsdev.monitor.system.bean.enums.ObjectType;
 
 import javax.persistence.*;
 
@@ -15,12 +13,13 @@ public class Metric {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(unique = true, nullable = false)
     private String label;
     private Double warn;
     @Column(name = "`limit`")
     private Double limit;
-    @Enumerated(EnumType.ORDINAL)
-    @Column(name = "obj_type")
+    @ManyToOne
+    @JoinColumn(name = "t_id", referencedColumnName = "id")
     private CollectorType objectType;
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "metric_type")
