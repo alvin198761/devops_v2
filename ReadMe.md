@@ -9,4 +9,4 @@ zookeeper kafka mycat consul redis rpc 等新的架构方式还没有设计过�
 
 希望在第二版本的架构中得到练习，提升自己
 
-思路仿照[WOL](http://54.223.127.87)
+思路仿照[OWL](http://54.223.127.87) ，[github 地址](https://github.com/TalkingData/owl)
