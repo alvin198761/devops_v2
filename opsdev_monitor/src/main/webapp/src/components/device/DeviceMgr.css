@@ -1,0 +1,8 @@
+.metrics {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  height: 64px;
+  line-height: 64px;
+  background: white;
+  border-bottom: 1px solid #cccccc;
+}

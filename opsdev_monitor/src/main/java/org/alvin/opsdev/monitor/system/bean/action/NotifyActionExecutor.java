@@ -3,8 +3,6 @@ package org.alvin.opsdev.monitor.system.bean.action;
 import org.alvin.opsdev.monitor.system.bean.enums.AlertLevel;
 import org.alvin.opsdev.monitor.system.bean.enums.AlertStatus;
 import org.alvin.opsdev.monitor.system.domain.Alert;
-import org.alvin.opsdev.monitor.system.service.ActionService;
-import org.alvin.opsdev.monitor.system.service.AlertService;
 import org.alvin.opsdev.monitor.system.service.cache.AlertCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -20,10 +18,6 @@ public class NotifyActionExecutor implements IAction {
 
     @Autowired
     private AlertCacheService alertCacheService;
-    @Autowired
-    private AlertService alertService;
-    @Autowired
-    private ActionService actionService;
     @Autowired
     private ApplicationContext applicationContext;
     private Long sendTime;

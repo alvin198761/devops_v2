@@ -92,50 +92,20 @@ public abstract class AbstractCollector implements ICollector {
                 Logger.getLogger(this.getClass()).error("采集数据为空: deveiceId = " + device.getId());
                 return;
             }
-            checkMetrics(ticket, device, this.resolve(ticket, group, device, result));
+            checkMetrics( device, this.resolve(ticket, group, device, result));
         } catch (Exception ex) {
             Logger.getLogger(this.getClass()).error(ex);
         }
     }
 
-    protected void checkMetrics(CollectorTicket ticket, Device device, List<Performance> performanceList) {
+    protected void checkMetrics( Device device, List<Performance> performanceList) {
         performanceList.stream().forEach(per -> {
-            Assert.notNull(per.getValue(), MessageFormat.format("performance value must not be null device = {0} , metric = {1}", device.getId(), per.getMetric().getId()));
             Metric metric = this.metricService.findOne(per.getMetric().getId());
-            Assert.notNull(metric, "metric must mot be null , id = " + per.getMetric().getId());
-            Threshold threshold = this.thresholdService.findByDeviceAndMetric(device, metric);
             Assert.notNull(metric, MessageFormat.format("threshold must mot be null , device = {0} ,metric = {1}", device.getId(), per.getMetric().getId()));
-            Assert.isTrue(threshold.getEnabled(), MessageFormat.format("threshold is disabled , device = {0} ,metric = {1}", device.getId(), per.getMetric().getId()));
-            //属性值用来查看，不用来比较 ，比如cpu 个数,内存总量
-            if (metric.getMetricType().equals(MetricType.ATTR)) {
-                performanceList.remove(per);
-                return;
-            }
-            // 超过了严重门限
-            if (per.getValue() >= threshold.getLimit()) {
-                alertCacheService.add(createAlert(ticket, device, metric, AlertLevel.CRITICAL));
-                return;
-            }
-            // 超过了警告门限
-            if (per.getValue() >= threshold.getWarn()) {
-                alertCacheService.add(createAlert(ticket, device, metric, AlertLevel.WARNING));
-                return;
-            }
             //保存当前值
             this.deviceMetricValueCacheService.put(device, metric, per.getValue());
         });
         this.performanceService.save(performanceList);
-    }
-
-    protected Alert createAlert(CollectorTicket ticket, Device device, Metric metric, AlertLevel level) {
-        Alert alert = new Alert();
-        alert.setDevice(device);
-        alert.setMetric(metric);
-        alert.setStatus(AlertStatus.ACTIVE);
-        alert.setLevel(level);
-        alert.setCount(0);
-        alert.setTime(ticket.getTime());
-        return alert;
     }
 
     protected Performance createPerformance(Device device, Metric metric, Date time, double value) {

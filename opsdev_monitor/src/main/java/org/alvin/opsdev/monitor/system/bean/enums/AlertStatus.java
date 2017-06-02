@@ -5,5 +5,5 @@ package org.alvin.opsdev.monitor.system.bean.enums;
  */
 public enum  AlertStatus {
 
-    CLEAN,ACTIVE,CLOSED,KNOWN
+    CLEAN,ACTIVE,CLOSED,KNOWN,UNKNOWN
 }

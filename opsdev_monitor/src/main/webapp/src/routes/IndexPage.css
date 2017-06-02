@@ -19,3 +19,7 @@
 .header-setting .ant-menu-horizontal > .ant-menu-item, .ant-menu-horizontal > .ant-menu-submenu{
   float: right;
 }
+
+.ant-layout-sider {
+  background: none;
+}

@@ -3,12 +3,14 @@
  */
 import app from './app';
 import chart from './chart';
+import device from './device';
 import {useStrict} from 'mobx';
 useStrict(false)
 
 const store = {
   app: new app(),
-  chart:new chart()
+  chart: new chart(),
+  device: new device(),
 };
 
 export default store;
